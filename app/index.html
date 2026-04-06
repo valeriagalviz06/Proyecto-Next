@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rush | Street Food Gourmet & Fusión</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/general.css">
+    <link rel="stylesheet" href="styles/index.css">
+
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">Rush</div>
+        <button class="nav-btn">Pedir Ahora</button>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Burgers & Hot Dogs de <span>Otro Nivel</span> 🔥</h1>
+            <p>Ven por el Rush y quédate por el sabor. Street Food Gourmet & Fusión con la mejor actitud.</p>
+            <button class="nav-btn" style="padding: 15px 40px; font-size: 1.2rem;">Ver Menú</button>
+        </div>
+        <div class="mascot-container">
+            <!-- AQUÍ VA LA IMAGEN DE NEWTON (EL ERIZO) -->
+            <!-- Sustituye el src por la ruta real de tu imagen -->
+            <img src="{%static 'img/Newton.png'%}" alt="Mascota Newton Rush">
+        </div>
+    </section>
+
+    <!-- MENU SECTION -->
+    <section class="menu-section">
+        <h2 class="menu-title">Nuestro Menú</h2>
+
+        <!-- Toggle de Categorías -->
+        <div class="category-toggle">
+            <div class="toggle-bg" id="toggle-bg"></div>
+            <button class="cat-btn active" onclick="setCategory('burgers', 0)">Hamburguesas</button>
+            <button class="cat-btn" onclick="setCategory('hotdogs', 1)">Perros Calientes</button>
+        </div>
+
+        <!-- Contenedor del Slider -->
+        <div class="slider-container">
+            <div id="slider-content">
+                <!-- Los productos se inyectan aquí con JavaScript -->
+            </div>
+
+            <!-- Controles -->
+            <div class="slider-controls">
+                <button class="ctrl-btn" onclick="prevSlide()">&#8592;</button>
+                <button class="ctrl-btn" onclick="nextSlide()">&#8594;</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ================= DATOS DE LOS PRODUCTOS =================
+        const products = {
+            burgers:[
+                {
+                    name: "Rush Clásica",
+                    desc: "Carne de res de 150g, doble queso fundido, tocineta crujiente, lechuga fresca, tomate y nuestra salsa secreta Rush en pan brioche artesanal.",
+                    price: "$6.50",
+                    img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                },
+                {
+                    name: "La Newton Smash",
+                    desc: "Doble carne smash (aplastada y crujiente en los bordes), triple queso cheddar, cebolla caramelizada y aderezo de ajo. ¡Una explosión de sabor!",
+                    price: "$8.00",
+                    img: "https://images.unsplash.com/photo-1594212202875-86ac519fe829?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                }
+            ],
+            hotdogs:[
+                {
+                    name: "Perro Callejero VIP",
+                    desc: "Salchicha polaca ahumada, ensalada rallada fresca, papitas crujientes, queso pecorino, salsa de ajo y un toque de salsa rosada.",
+                    price: "$4.00",
+                    img: "https://images.unsplash.com/photo-1619740455993-9e612b1af08a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                },
+                {
+                    name: "El Mostro Rush",
+                    desc: "Doble salchicha, coronado con carne molida sazonada, queso fundido, tocineta picada y jalapeños para los valientes.",
+                    price: "$5.50",
+                    img: "https://images.unsplash.com/photo-1590165482129-1b8b27698780?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                }
+            ]
+        };
+
+        // ================= LÓGICA DEL SLIDER =================
+        let currentCategory = 'burgers';
+        let currentIndex = 0;
+
+        const sliderContent = document.getElementById('slider-content');
+        const toggleBg = document.getElementById('toggle-bg');
+        const catBtns = document.querySelectorAll('.cat-btn');
+
+        // Función para renderizar el producto actual
+        function renderSlide() {
+            const item = products[currentCategory][currentIndex];
+
+            // Creamos el HTML del slide
+            const slideHTML = `
+                <div class="product-slide active">
+                    <div class="product-image">
+                        <img src="${item.img}" alt="${item.name}">
+                    </div>
+                    <div class="product-info">
+                        <h3>${item.name}</h3>
+                        <p>${item.desc}</p>
+                        <div class="price-row">
+                            <span class="price">${item.price}</span>
+                            <button class="btn-order">+ Agregar</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Efecto de desvanecimiento
+            sliderContent.style.opacity = 0;
+            setTimeout(() => {
+                sliderContent.innerHTML = slideHTML;
+                sliderContent.style.opacity = 1;
+            }, 200);
+        }
+
+        // Función para cambiar de categoría (Hamburguesas <-> Perros)
+        function setCategory(category, btnIndex) {
+            currentCategory = category;
+            currentIndex = 0; // Reiniciar al primer producto de la categoría
+
+            // Animación del fondo del botón (Toggle)
+            toggleBg.style.transform = `translateX(${btnIndex * 100}%)`;
+
+            // Cambiar color del texto activo
+            catBtns.forEach(btn => btn.classList.remove('active'));
+            catBtns[btnIndex].classList.add('active');
+
+            // Cambiar el color del toggle según la categoría para darle estilo
+            if(category === 'burgers') {
+                toggleBg.style.backgroundColor = 'var(--c-pink)';
+            } else {
+                toggleBg.style.backgroundColor = 'var(--c-green)';
+            }
+
+            renderSlide();
+        }
+
+        // Controles de siguiente / anterior
+        function nextSlide() {
+            const maxIndex = products[currentCategory].length - 1;
+            currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
+            renderSlide();
+        }
+
+        function prevSlide() {
+            const maxIndex = products[currentCategory].length - 1;
+            currentIndex = currentIndex <= 0 ? maxIndex : currentIndex - 1;
+            renderSlide();
+        }
+
+        // Renderizar el primer slide al cargar la página
+        window.onload = renderSlide;
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+/* ================= VARIABLES DE COLOR ================= */
+:root {
+    --c-green: #b7ce1e;
+    --c-pink: #dc2f89;
+    --c-white: #ffffff;
+    --c-dark: #121212;
+    --c-darker: #0a0a0a;
+    --c-gray: #2a2a2a;
+}
+
+/* ================= ESTILOS GENERALES ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--c-dark);
+    color: var(--c-white);
+    overflow-x: hidden;
+}
+
+/* ================= NAVEGACIÓN ================= */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: var(--c-darker);
+    border-bottom: 2px solid var(--c-gray);
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 900;
+    font-style: italic;
+    color: var(--c-pink);
+    text-shadow: 2px 2px 0px var(--c-green);
+    letter-spacing: 2px;
+}
+
+.nav-btn {
+    background-color: var(--c-green);
+    color: var(--c-darker);
+    padding: 10px 25px;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(183, 206, 30, 0.3);
+}
+
+.nav-btn:hover {
+    transform: scale(1.05);
+    background-color: var(--c-white);
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.4);
+}
