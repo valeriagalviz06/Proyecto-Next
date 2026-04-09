@@ -1,0 +1,54 @@
+/* ================= HERO SECTION ================= */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 5%;
+    min-height: 60vh;
+    background: radial-gradient(circle at 80% 50%, rgba(220, 47, 137, 0.15), transparent 50%), radial-gradient(circle at 20% 50%, rgba(183, 206, 30, 0.1), transparent 50%);
+}
+
+.hero-text {
+    max-width: 50%;
+}
+
+.hero-text h1 {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hero-text h1 span {
+    color: var(--c-green);
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    color: #ccc;
+    margin-bottom: 30px;
+}
+
+.mascot-container {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    animation: float 4s ease-in-out infinite;
+}
+
+.mascot-container img {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0px 10px 20px rgba(220, 47, 137, 0.4));
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
